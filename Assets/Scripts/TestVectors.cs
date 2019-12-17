@@ -17,7 +17,12 @@ public class TestVectors : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector result = Vector.DivideVectorScalar(vectorA, scalar);
-        print($"({result.x}, {result.y}, {result.z})");
+        //Vector resultVector = Vector.(vectorA);
+        //print($"({resultVector.x}, {resultVector.y}, {resultVector.z})");
+
+        //print(Vector3.Normalize(Vector.CastToUnityVector(vectorA)));
+
+        //float resultFloat = Vector.Magnitude(vectorA);
+        //print(resultFloat);
     }
 }

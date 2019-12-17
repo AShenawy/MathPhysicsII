@@ -37,7 +37,7 @@ namespace VectorScripts
         }
 
         /// <summary>
-        /// Add vector a to vector b.
+        /// Add two vectors.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -183,8 +183,97 @@ namespace VectorScripts
         {
             Vector scaledVector = MultiplyScalar(b, c);
             Vector scaledAddition = Add(a, scaledVector);
+            
+            return scaledAddition;
+        }
+        
+        /// <summary>
+        /// Dot product of two vectors.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static float Dot(Vector a, Vector b)
+        {
+            Vector productVector = HadamardProduct(a, b);
+            float componentSum = productVector.x + productVector.y + productVector.z;
+            
+            return componentSum;
+        }
 
-            return new Vector(scaledAddition.x, scaledAddition.y, scaledAddition.z);
+        /// <summary>
+        /// Returns the square magnitude of vector.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static float SqrMagnitude(Vector vector)
+        {
+            float productDot = Dot(vector, vector);
+            
+            return productDot;
+        }
+
+        /// <summary>
+        /// Returns the magnitude/norm/scale/length of vector.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static float Magnitude(Vector vector)
+        {
+            float sqrMag = SqrMagnitude(vector);
+            float magnitude = Mathf.Sqrt(sqrMag);
+            
+            return magnitude;
+        }
+
+        /// <summary>
+        /// Returns the normal or the direction of vector.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static Vector Normalize(Vector vector)
+        {
+            float vectorMagnitude = Magnitude(vector);
+            Vector vectorNormal = DivideVectorScalar(vector, vectorMagnitude);
+            
+            return vectorNormal;
+        }
+
+        /// <summary>
+        /// Returns the invert of vector.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static Vector Invert(Vector vector)
+        {
+            Vector vectorInvert = MultiplyScalar(vector, -1);
+
+            return vectorInvert;
+        }
+
+        /// <summary>
+        /// Converts from VectorScript vector to Unity's Vector3.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static Vector3 CastToUnityVector(Vector vector)
+        {
+            Vector3 castVector3 = new Vector3(vector.x, vector.y, vector.z);
+            
+            return castVector3;
+        }
+
+        /// <summary>
+        /// Converts from Unity's Vector3 to VectorScript vector.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static Vector CastToVectorScript(Vector3 vector)
+        {
+            Vector castVector = new Vector(vector.x, vector.y, vector.z);
+
+            return castVector;
         }
     }
 }

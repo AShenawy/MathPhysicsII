@@ -6,6 +6,7 @@ public class TestVectors : MonoBehaviour
 {
     public Vector vectorA;
     public Vector vectorB;
+    public float scalar;
 
     // Use this for initialization
     void Start()
@@ -16,8 +17,7 @@ public class TestVectors : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector result = Vector.Subtract(vectorA, vectorB);
+        Vector result = Vector.DivideVectorScalar(vectorA, scalar);
         print($"({result.x}, {result.y}, {result.z})");
-        
     }
 }

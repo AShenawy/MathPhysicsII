@@ -16,7 +16,10 @@ public class PhysicsWorld : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        foreach(Particle particle in particles)
+        {
+            particle.Integrate();
+        }
     }
 
     public void AddParticle(Particle particle)

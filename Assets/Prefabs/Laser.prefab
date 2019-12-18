@@ -109,8 +109,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inverseMass: 10
   damping: 0.99
-  initialVelocity: {x: 10000, y: 0, z: 0}
-  gravityAcceleration: {x: 0, y: 0, z: 0}
+  initialVelocity:
+    x: 100
+    y: 0
+    z: 0
+  gravityAcceleration:
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &8018929343980478955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,8 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750d4fb6cec6ace41aa638ad3edb47eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inverseMass: 0
-  damping: 0
-  initialVelocity: {x: 0, y: 0, z: 0}
-  gravityAcceleration: {x: 0, y: 0, z: 0}
   ammoScript: {fileID: 0}

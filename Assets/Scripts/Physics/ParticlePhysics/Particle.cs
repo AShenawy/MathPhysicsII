@@ -29,7 +29,7 @@ public class Particle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Integrate();
     }
 
     private Vector SetVelocityForward()
@@ -62,6 +62,15 @@ public class Particle : MonoBehaviour
         Vector dampenedVelocity = Vector.MultiplyScalar(accelerationVelocity, dampingImpact);
 
         velocity = dampenedVelocity;
+
+        // Add velocity to location
+        if(gameObject != null)  // if particle still exists
+        {
+            Vector particlePos = Vector.CastToVectorScript(transform.position);
+            Vector motionVelocity = Vector.AddScaledVector(particlePos, dampenedVelocity, Time.deltaTime);
+            transform.position = Vector.CastToUnityVector(motionVelocity);
+        }
+
     }
 
     public bool HasFiniteMass()

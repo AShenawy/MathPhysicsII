@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using VectorScripts;
+using QuaternionScripts;
 
 namespace MatrixScripts
 {
@@ -191,6 +192,27 @@ namespace MatrixScripts
             return new Matrix3x3(scaledU, scaledV, scaledW);
         }
 
+        /// <summary>
+        /// Converts a QuaternionScripts quat into a rotational matrix3.
+        /// </summary>
+        /// <param name="quat"></param>
+        /// <returns></returns>
+        public static Matrix3x3 SetOrientation(Quat quat)
+        {
+            float uX = 1 - ((quat.j * quat.j * 2) + (quat.k * quat.k * 2));
+            float uY = (quat.i * quat.j * 2) - (quat.k * quat.r * 2);
+            float uZ = (quat.i * quat.k * 2) + (quat.j * quat.r * 2);
+            float vX = (quat.i * quat.j * 2) + (quat.k * quat.r * 2);
+            float vY = 1 - ((quat.j * quat.j * 2) + (quat.k * quat.k * 2));
+            float vZ = (quat.j * quat.k * 2) - (quat.i * quat.r * 2);
+            float wX = (quat.i * quat.k * 2) - (quat.j * quat.r * 2);
+            float wY = (quat.j * quat.k * 2) + (quat.i * quat.r * 2);
+            float wZ = 1 - ((quat.i * quat.i * 2) + (quat.j * quat.j * 2));
+            Vector colU = new Vector(uX, uY, uZ);
+            Vector colV = new Vector(vX, vY, vZ);
+            Vector colW = new Vector(wX, wY, wZ);
 
+            return new Matrix3x3(colU, colV, colW);
+        }
     }
 }

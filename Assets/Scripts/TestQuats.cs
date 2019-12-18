@@ -15,13 +15,13 @@ public class TestQuats : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        resultQuat = Quat.RotateByVector(quatA, vector);
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //Quaternion rotation = Quat.CastToUnityQuaternion(quatA);
+        //transform.rotation = rotation;
+        print(transform.rotation);
     }
 }

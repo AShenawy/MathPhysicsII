@@ -15,6 +15,13 @@ namespace QuaternionScripts
         public float j;
         public float k;
 
+        /// <summary>
+        ///Representation of Quaternion rotations.
+        /// </summary>
+        /// <param name="r">The x component of rotation.</param>
+        /// <param name="i">The y component of rotation.</param>
+        /// <param name="j">The z component of rotation.</param>
+        /// <param name="k">The w component of rotation.</param>
         public Quat(float r, float i, float j, float k)
         {
             this.r = r;

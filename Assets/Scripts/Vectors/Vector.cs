@@ -258,9 +258,7 @@ namespace VectorScripts
         /// <returns></returns>
         public static Vector3 CastToUnityVector(Vector vector)
         {
-            Vector3 castVector3 = new Vector3(vector.x, vector.y, vector.z);
-            
-            return castVector3;
+            return new Vector3(vector.x, vector.y, vector.z);
         }
 
         /// <summary>
@@ -270,9 +268,7 @@ namespace VectorScripts
         /// <returns></returns>
         public static Vector CastToVectorScript(Vector3 vector)
         {
-            Vector castVector = new Vector(vector.x, vector.y, vector.z);
-
-            return castVector;
+            return new Vector(vector.x, vector.y, vector.z);
         }
     }
 }

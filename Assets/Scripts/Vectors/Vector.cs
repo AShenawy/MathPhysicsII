@@ -5,7 +5,7 @@ using UnityEngine;
 namespace VectorScripts
 {
     /// <summary>
-    /// Representation of 3 x 1 vectors.
+    /// Representation of 3x1 vectors.
     /// </summary>
     [System.Serializable]
     public struct Vector
@@ -22,7 +22,7 @@ namespace VectorScripts
         }
         
         /// <summary>
-        /// Add vector a to vector b.
+        /// Add two vectors.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -155,7 +155,6 @@ namespace VectorScripts
 
             return new Vector(scalX, scalY, scalZ);
         }
-
 
         /// <summary>
         /// Divide scalar value a by vector b. Order is important.

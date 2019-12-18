@@ -110,9 +110,9 @@ MonoBehaviour:
   inverseMass: 1
   damping: 0.9
   initialVelocity:
-    x: 10
+    x: 0
     y: 0
-    z: 0
+    z: 10
   gravityAcceleration:
     x: 0
     y: 0

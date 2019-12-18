@@ -110,13 +110,13 @@ MonoBehaviour:
   inverseMass: 0.5
   damping: 0.99
   initialVelocity:
-    x: 35
-    y: 0
-    z: 0
-  gravityAcceleration:
     x: 0
     y: 0
-    z: -100
+    z: 35
+  gravityAcceleration:
+    x: 0
+    y: -10
+    z: 0
 --- !u!114 &4224208735201579925
 MonoBehaviour:
   m_ObjectHideFlags: 0

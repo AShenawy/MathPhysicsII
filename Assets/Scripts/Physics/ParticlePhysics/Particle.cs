@@ -11,12 +11,14 @@ public class Particle : MonoBehaviour
     private Vector velocity;
     private Vector acceleration;
     private Vector forceAccum;
+    private GameObject player;
 
     void Start()
     {
         if (PhysicsWorld.physW)
             PhysicsWorld.physW.AddParticle(this);
 
+        player = GameObject.FindGameObjectWithTag("Player");
 
         // Set initial values
         ammoScript = GetComponent<Ammo>();
@@ -38,7 +40,7 @@ public class Particle : MonoBehaviour
         float velocityMag = Vector.Magnitude(initVelocity);
 
         // Shoot forward
-        Vector forwardVector = Vector.CastToVectorScript(Vector3.forward);
+        Vector forwardVector = Vector.CastToVectorScript(player.transform.forward);
         Vector forwardVelocity = Vector.MultiplyScalar(forwardVector, velocityMag);
         
         return forwardVelocity;

@@ -10,6 +10,7 @@ public class Particle : MonoBehaviour
     private float damping;
     private Vector velocity;
     private Vector acceleration;
+    private Vector forceAccum;
 
     void Start()
     {
@@ -22,7 +23,7 @@ public class Particle : MonoBehaviour
         inverseMass = ammoScript.inverseMass;
         damping = ammoScript.damping;
         acceleration = ammoScript.gravityAcceleration;
-        velocity = ammoScript.initialVelocity;
+        velocity = SetVelocityForward();
     }
 
     // Update is called once per frame
@@ -45,17 +46,39 @@ public class Particle : MonoBehaviour
 
     public void Integrate()
     {
-        if(HasFiniteMass() ==  true)
-        {
-            
-        }
+        // if mass is 0 or less then exit method.
+        if (HasFiniteMass() == false)
+            return;
+
+        // Add force to acceleration.
+        Vector accelerationForce = Vector.AddScaledVector(acceleration, forceAccum, Time.deltaTime);
+        acceleration = accelerationForce;
+
+        // Add acceleration to velocity
+        Vector accelerationVelocity = Vector.AddScaledVector(velocity, acceleration, Time.deltaTime);
+
+        // Add dampening to velocity
+        float dampingImpact = Mathf.Pow(damping, Time.deltaTime);
+        Vector dampenedVelocity = Vector.MultiplyScalar(accelerationVelocity, dampingImpact);
+
+        velocity = dampenedVelocity;
     }
 
-    private bool HasFiniteMass()
+    public bool HasFiniteMass()
     {
         if (inverseMass > 0)
             return true;
         else
             return false;
+    }
+
+    public void AddForce(Vector force)
+    {
+        forceAccum = Vector.Add(force, forceAccum);
+    }
+
+    public float GetMass()
+    {
+        return Mathf.Pow(inverseMass, -1);
     }
 }

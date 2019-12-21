@@ -6,16 +6,16 @@ using QuaternionScripts;
 namespace MatrixScripts
 {
     /// <summary>
-/// Representation of 3x3 Matrices.
-/// </summary>
+    /// Representation of 3x3 Matrices.
+    /// </summary>
     [System.Serializable]
-    public struct Matrix3x3
+    public struct Matrix3
     {
         public Vector u;
         public Vector v;
         public Vector w;
 
-        public Matrix3x3(Vector u, Vector v, Vector w)
+        public Matrix3(Vector u, Vector v, Vector w)
         {
             this.u = u;
             this.v = v;
@@ -29,9 +29,9 @@ namespace MatrixScripts
         /// <param name="column2">Second column in 3x3 matrix.</param>
         /// <param name="column3">Third column in 3x3 matrix.</param>
         /// <returns></returns>
-        public static Matrix3x3 SetComponents(Vector column1, Vector column2, Vector column3)
+        public static Matrix3 SetComponents(Vector column1, Vector column2, Vector column3)
         {
-            return new Matrix3x3(column1, column2, column3);
+            return new Matrix3(column1, column2, column3);
         }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace MatrixScripts
         /// <param name="y">VY (2,2) component of matrix.</param>
         /// <param name="z">WZ (3,3) component of matrix.</param>
         /// <returns></returns>
-        public static Matrix3x3 SetDiagonal(float x, float y, float z)
+        public static Matrix3 SetDiagonal(float x, float y, float z)
         {
             Vector col1 = new Vector(x, 0, 0);
             Vector col2 = new Vector(0, y, 0);
             Vector col3 = new Vector(0, 0, z);
 
-            return new Matrix3x3(col1, col2, col3);
+            return new Matrix3(col1, col2, col3);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace MatrixScripts
         /// </summary>
         /// <param name="matrix3"></param>
         /// <returns></returns>
-        public static float Determinant(Matrix3x3 matrix3)
+        public static float Determinant(Matrix3 matrix3)
         {
             // First set multiplications U.X * V.Y * W.Z and U.X * W.Y * V.Z
             float productUVW = matrix3.u.x * matrix3.v.y * matrix3.w.z;
@@ -93,13 +93,13 @@ namespace MatrixScripts
         /// </summary>
         /// <param name="matrix3"></param>
         /// <returns></returns>
-        public static Matrix3x3 Transpose(Matrix3x3 matrix3)
+        public static Matrix3 Transpose(Matrix3 matrix3)
         {
             Vector transU = new Vector(matrix3.u.x, matrix3.v.x, matrix3.w.x);
             Vector transV = new Vector(matrix3.u.y, matrix3.v.y, matrix3.w.y);
             Vector transW = new Vector(matrix3.u.z, matrix3.v.z, matrix3.w.z);
 
-            return new Matrix3x3(transU, transV, transW);
+            return new Matrix3(transU, transV, transW);
         }
 
         /// <summary>
@@ -108,13 +108,13 @@ namespace MatrixScripts
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Matrix3x3 Add(Matrix3x3 a, Matrix3x3 b)
+        public static Matrix3 Add(Matrix3 a, Matrix3 b)
         {
             Vector addedU = Vector.Add(a.u, b.u);
             Vector addedV = Vector.Add(a.v, b.v);
             Vector addedW = Vector.Add(a.w, b.w);
 
-            return new Matrix3x3(addedU, addedV, addedW);
+            return new Matrix3(addedU, addedV, addedW);
         }
 
         /// <summary>
@@ -123,13 +123,13 @@ namespace MatrixScripts
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Matrix3x3 AddScalar(Matrix3x3 a, float b)
+        public static Matrix3 AddScalar(Matrix3 a, float b)
         {
             Vector scalarAddV = Vector.AddScalar(a.v, b);
             Vector scalarAddU = Vector.AddScalar(a.u, b);
             Vector scalarAddW = Vector.AddScalar(a.w, b);
 
-            return new Matrix3x3(scalarAddU, scalarAddV, scalarAddW);
+            return new Matrix3(scalarAddU, scalarAddV, scalarAddW);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace MatrixScripts
         /// <param name="matrix3"></param>
         /// <param name="vector"></param>
         /// <returns></returns>
-        public static Vector TransformTranspose(Matrix3x3 matrix3, Vector vector)
+        public static Vector TransformTranspose(Matrix3 matrix3, Vector vector)
         {
             float dotX = Vector.Dot(matrix3.u, vector);
             float dotY = Vector.Dot(matrix3.v, vector);
@@ -153,9 +153,9 @@ namespace MatrixScripts
         /// <param name="matrix3"></param>
         /// <param name="vector"></param>
         /// <returns></returns>
-        public static Vector Transform(Matrix3x3 matrix3, Vector vector)
+        public static Vector Transform(Matrix3 matrix3, Vector vector)
         {
-            Matrix3x3 transMatrix = Transpose(matrix3);
+            Matrix3 transMatrix = Transpose(matrix3);
             Vector transformVector = TransformTranspose(transMatrix, vector);
 
             return transformVector;
@@ -167,14 +167,14 @@ namespace MatrixScripts
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static Matrix3x3 Multiply(Matrix3x3 a, Matrix3x3 b)
+        public static Matrix3 Multiply(Matrix3 a, Matrix3 b)
         {
-            Matrix3x3 transposeA = Transpose(a);
+            Matrix3 transposeA = Transpose(a);
             Vector multiplyU = TransformTranspose(b, transposeA.u);
             Vector multiplyV = TransformTranspose(b, transposeA.v);
             Vector multiplyW = TransformTranspose(b, transposeA.w);
 
-            return new Matrix3x3(multiplyU, multiplyV, multiplyW);
+            return new Matrix3(multiplyU, multiplyV, multiplyW);
         }
 
         /// <summary>
@@ -183,13 +183,13 @@ namespace MatrixScripts
         /// <param name="matrix3"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Matrix3x3 MultiplyScalar(Matrix3x3 matrix3, float value)
+        public static Matrix3 MultiplyScalar(Matrix3 matrix3, float value)
         {
             Vector scaledU = Vector.MultiplyScalar(matrix3.u, value);
             Vector scaledV = Vector.MultiplyScalar(matrix3.v, value);
             Vector scaledW = Vector.MultiplyScalar(matrix3.w, value);
 
-            return new Matrix3x3(scaledU, scaledV, scaledW);
+            return new Matrix3(scaledU, scaledV, scaledW);
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace MatrixScripts
         /// </summary>
         /// <param name="quat"></param>
         /// <returns></returns>
-        public static Matrix3x3 SetOrientation(Quat quat)
+        public static Matrix3 SetOrientation(Quat quat)
         {
             float uX = 1 - ((quat.j * quat.j * 2) + (quat.k * quat.k * 2));
             float uY = (quat.i * quat.j * 2) - (quat.k * quat.r * 2);
@@ -212,7 +212,7 @@ namespace MatrixScripts
             Vector colV = new Vector(vX, vY, vZ);
             Vector colW = new Vector(wX, wY, wZ);
 
-            return new Matrix3x3(colU, colV, colW);
+            return new Matrix3(colU, colV, colW);
         }
     }
 }

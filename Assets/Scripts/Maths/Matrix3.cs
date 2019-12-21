@@ -214,5 +214,47 @@ namespace MatrixScripts
 
             return new Matrix3(colU, colV, colW);
         }
+
+        /// <summary>
+        /// Returns the inverse of matrix3.
+        /// </summary>
+        /// <param name="matrix3"></param>
+        /// <returns></returns>
+        public static Matrix3 Inverse(Matrix3 matrix3)
+        {
+            float determinant = Determinant(matrix3);
+
+            // check if inverse determinant will yield infinity.
+            if(determinant == 0)
+            {
+                Debug.Log("Determinant = 0, cannot inverse");
+                return new Matrix3();
+            }
+
+            Vector inverseU = MultiplyDivideDeterminantColumn(matrix3.v, matrix3.w, determinant);
+            Vector inverseV = MultiplyDivideDeterminantColumn(matrix3.u, matrix3.w, determinant);
+            Vector inverseW = MultiplyDivideDeterminantColumn(matrix3.u, matrix3.v, determinant);
+
+            return new Matrix3(inverseU, inverseV, inverseW);
+        }
+
+        // Helper calculation for MultiplyDivideDeterminantColumn method.
+        private static float MultiplyDivideDeterminant(float a, float b, float c, float d, float det)
+        {
+            float multSubInputs = (a * d) - (b * c);
+            float multiDivideDet = multSubInputs * (1 / det);
+
+            return multiDivideDet;
+        }
+
+        // Helper calculation for Inverse method.
+        private static Vector MultiplyDivideDeterminantColumn(Vector a, Vector b, float det)
+        {
+            float x = MultiplyDivideDeterminant(a.y, b.z, b.y, a.z, det);
+            float y = MultiplyDivideDeterminant(a.x, b.z, a.z, b.x, det);
+            float z = MultiplyDivideDeterminant(a.x, b.y, a.y, b.x, det);
+
+            return new Vector(x, y, z);
+        }
     }
 }
